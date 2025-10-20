@@ -2,16 +2,18 @@
 const audioContext = new AudioContext();
 
 // Create a DelayNode to delay the incoming audio
-const delay = audioContext.createDelay();
-delay.delayTime.value = 0.5; // Set delay time to 0.5 seconds
+const delay = new DelayNode(audioContext, {delayTime: 0.5});
+
 
 // Create a GainNode to control the feedback amount
-const feedback = audioContext.createGain();
-feedback.gain.value = 0.4; // Set feedback level (40% of signal loops back)
+// Set feedback level (40% of signal loops back)
+
+const feedback = new GainNode(audioContext, {gain:0.4});
 
 // Create a GainNode to control the final output volume
-const outputGain = audioContext.createGain();
-outputGain.gain.value = 0.8; // Set output volume to 80%
+// Set output volume to 80%
+const outputGain = new GainNode(audioContext, {gain: 0.8})
+
 
 // Connect the delay node into the feedback loop: delay -> feedback -> delay
 delay.connect(feedback);
